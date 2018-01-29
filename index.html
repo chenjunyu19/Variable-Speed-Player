@@ -61,33 +61,43 @@
       </section>
     </div>
   </main>
+  <div class="mdc-snackbar mdc-snackbar--align-start" aria-live="assertive" aria-atomic="true" aria-hidden="true">
+    <div class="mdc-snackbar__text"></div>
+    <div class="mdc-snackbar__action-wrapper">
+      <button type="button" class="mdc-snackbar__action-button"></button>
+    </div>
+  </div>
   <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
   <script>
-    window.mdc.autoInit();
-    document.querySelector('.mdc-toolbar__title').innerHTML = document.title;
-    document.querySelector('#drop').addEventListener('dragover', (event) => {
-      event.preventDefault();
-    })
-    document.querySelector('#drop').addEventListener('drop', (event) => {
-      event.preventDefault();
-      if (event.dataTransfer.getData('URL')) {
-        document.querySelector('video').src = event.dataTransfer.getData('URL');
-      } else if (event.dataTransfer.files) {
-        document.querySelector('video').src = URL.createObjectURL(event.dataTransfer.files[0]);
-      }
-    })
+    const drop = document.querySelector('#drop');
     const slider = new mdc.slider.MDCSlider(document.querySelector('.mdc-slider'));
+    const video = document.querySelector('video');
+    const snackbar = new mdc.snackbar.MDCSnackbar(document.querySelector('.mdc-snackbar'));
     function update() {
       document.querySelector('#speed').innerHTML = slider.value;
-      document.querySelector('video').playbackRate = slider.value;
+      video.playbackRate = slider.value;
     }
+    window.mdc.autoInit();
+    document.querySelector('.mdc-toolbar__title').innerHTML = document.title;
+    drop.addEventListener('dragover', (event) => {
+      event.preventDefault();
+    });
+    drop.addEventListener('drop', (event) => {
+      event.preventDefault();
+      if (event.dataTransfer.getData('URL')) {
+        video.src = event.dataTransfer.getData('URL');
+      } else if (event.dataTransfer.files) {
+        video.src = URL.createObjectURL(event.dataTransfer.files[0]);
+      }
+    });
     slider.listen('MDCSlider:change', update);
     slider.listen('MDCSlider:input', update);
     document.querySelector('#reset').addEventListener('click', () => {
       slider.value = 1;
       update();
-    });;
-    document.querySelector('video').addEventListener('play', update);
+    });
+    video.addEventListener('error', () => snackbar.show({ message: '加载媒体时发生了错误！' }));
+    video.addEventListener('play', update);
   </script>
 </body>
 
