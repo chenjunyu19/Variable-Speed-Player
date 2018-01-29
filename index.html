@@ -29,8 +29,11 @@
   <main class="mdc-toolbar-fixed-adjust">
     <div class="mdc-card" id="drop">
       <section class="mdc-card__primary">
-        <h1 class="mdc-card__title mdc-card__title--large">打开媒体</h1>
+        <h1 class="mdc-card__title mdc-card__title--large" id="filename">请打开媒体</h1>
         <h2 class="mdc-card__subtitle">本地或在线文件。将媒体文件托放至此处。</h2>
+      </section>
+      <section class="mdc-card__media">
+        <video controls autoplay></video>
       </section>
     </div>
     <div class="mdc-card">
@@ -55,11 +58,6 @@
         <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple" id="reset">重置为 1</button>
       </section>
     </div>
-    <div class="mdc-card">
-      <section class="mdc-card__media">
-        <video controls autoplay></video>
-      </section>
-    </div>
   </main>
   <div class="mdc-snackbar mdc-snackbar--align-start" aria-live="assertive" aria-atomic="true" aria-hidden="true">
     <div class="mdc-snackbar__text"></div>
@@ -70,8 +68,9 @@
   <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
   <script>
     const drop = document.querySelector('#drop');
-    const slider = new mdc.slider.MDCSlider(document.querySelector('.mdc-slider'));
+    const filename = document.querySelector('#filename');
     const video = document.querySelector('video');
+    const slider = new mdc.slider.MDCSlider(document.querySelector('.mdc-slider'));
     const snackbar = new mdc.snackbar.MDCSnackbar(document.querySelector('.mdc-snackbar'));
     function update() {
       document.querySelector('#speed').innerHTML = slider.value;
@@ -85,19 +84,21 @@
     drop.addEventListener('drop', (event) => {
       event.preventDefault();
       if (event.dataTransfer.getData('URL')) {
-        video.src = event.dataTransfer.getData('URL');
+        filename.innerHTML = video.src = event.dataTransfer.getData('URL');
       } else if (event.dataTransfer.files) {
-        video.src = URL.createObjectURL(event.dataTransfer.files[0]);
+        const file = event.dataTransfer.files[0];
+        filename.innerHTML = file.name;
+        video.src = URL.createObjectURL(file);
       }
     });
+    video.addEventListener('error', () => snackbar.show({ message: '加载媒体时发生了错误！' }));
+    video.addEventListener('play', update);
     slider.listen('MDCSlider:change', update);
     slider.listen('MDCSlider:input', update);
     document.querySelector('#reset').addEventListener('click', () => {
       slider.value = 1;
       update();
     });
-    video.addEventListener('error', () => snackbar.show({ message: '加载媒体时发生了错误！' }));
-    video.addEventListener('play', update);
   </script>
 </body>
 
