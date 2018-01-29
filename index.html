@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Variable Speed Player</title>
+  <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+  <style>
+    :root {
+      --mdc-theme-background: #eee;
+    }
+
+    .mdc-card {
+      background-color: white;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+
+<body class="mdc-theme--background">
+  <header class="mdc-toolbar mdc-toolbar--fixed">
+    <div class="mdc-toolbar__row">
+      <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+        <span class="mdc-toolbar__title"></span>
+      </section>
+    </div>
+  </header>
+  <main class="mdc-toolbar-fixed-adjust">
+    <div class="mdc-card" id="drop">
+      <section class="mdc-card__primary">
+        <h1 class="mdc-card__title mdc-card__title--large">打开媒体</h1>
+        <h2 class="mdc-card__subtitle">本地或在线文件。将媒体文件托放至此处。</h2>
+      </section>
+    </div>
+    <div class="mdc-card">
+      <section class="mdc-card__primary">
+        <h1 class="mdc-card__title mdc-card__title--large">回放速度</h1>
+        <h2 class="mdc-card__subtitle" id="speed">1</h2>
+      </section>
+      <section class="mdc-card__supporting-text">
+        <div class="mdc-slider" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="2" aria-valuenow="1" aria-label="Select Value">
+          <div class="mdc-slider__track-container">
+            <div class="mdc-slider__track"></div>
+          </div>
+          <div class="mdc-slider__thumb-container">
+            <svg class="mdc-slider__thumb" width="21" height="21">
+              <circle cx="10.5" cy="10.5" r="7.875"></circle>
+            </svg>
+            <div class="mdc-slider__focus-ring"></div>
+          </div>
+        </div>
+      </section>
+      <section class="mdc-card__actions">
+        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple" id="reset">重置为 1</button>
+      </section>
+    </div>
+    <div class="mdc-card">
+      <section class="mdc-card__media">
+        <video controls autoplay></video>
+      </section>
+    </div>
+  </main>
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  <script>
+    window.mdc.autoInit();
+    document.querySelector('.mdc-toolbar__title').innerHTML = document.title;
+    document.querySelector('#drop').addEventListener('dragover', (event) => {
+      event.preventDefault();
+    })
+    document.querySelector('#drop').addEventListener('drop', (event) => {
+      event.preventDefault();
+      if (event.dataTransfer.getData('URL')) {
+        document.querySelector('video').src = event.dataTransfer.getData('URL');
+      } else if (event.dataTransfer.files) {
+        document.querySelector('video').src = URL.createObjectURL(event.dataTransfer.files[0]);
+      }
+    })
+    const slider = new mdc.slider.MDCSlider(document.querySelector('.mdc-slider'));
+    function update() {
+      document.querySelector('#speed').innerHTML = slider.value;
+      document.querySelector('video').playbackRate = slider.value;
+    }
+    slider.listen('MDCSlider:change', update);
+    slider.listen('MDCSlider:input', update);
+    document.querySelector('#reset').addEventListener('click', () => {
+      slider.value = 1;
+      update();
+    });;
+    document.querySelector('video').addEventListener('play', update);
+  </script>
+</body>
+
+</html>
