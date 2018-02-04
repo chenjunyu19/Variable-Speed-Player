@@ -70,6 +70,7 @@
   </div>
   <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
   <script>
+    mdc.autoInit();
     const drop = document.querySelector('#drop');
     const filename = document.querySelector('#filename');
     const video = document.querySelector('video');
@@ -79,7 +80,6 @@
       document.querySelector('#speed').innerHTML = slider.value;
       video.playbackRate = slider.value;
     }
-    window.mdc.autoInit();
     document.querySelector('.mdc-toolbar__title').innerHTML = document.title;
     drop.addEventListener('dragover', (event) => {
       event.preventDefault();
