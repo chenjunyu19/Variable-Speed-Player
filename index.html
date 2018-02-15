@@ -15,6 +15,10 @@
       background-color: white;
       margin: 8px 0;
     }
+
+    .padding {
+      padding: 0 1rem;
+    }
   </style>
 </head>
 
@@ -31,20 +35,15 @@
   </header>
   <main class="mdc-toolbar-fixed-adjust">
     <div class="mdc-card" id="drop">
-      <section class="mdc-card__primary">
-        <h1 class="mdc-card__title mdc-card__title--large" id="filename">请打开媒体</h1>
-        <h2 class="mdc-card__subtitle">本地或在线文件。将媒体文件托放至此处。</h2>
-      </section>
-      <section class="mdc-card__media">
-        <video controls autoplay></video>
-      </section>
+      <h3 class="padding" id="filename">接受本地或在线文件。将媒体文件托放至此处。</h3>
+      <video controls autoplay></video>
     </div>
     <div class="mdc-card">
-      <section class="mdc-card__primary">
-        <h1 class="mdc-card__title mdc-card__title--large">回放速度</h1>
-        <h2 class="mdc-card__subtitle" id="speed">1</h2>
-      </section>
-      <section class="mdc-card__supporting-text">
+      <div class="padding">
+        <h3>
+          回放速度
+          <div id="speed">1</div>
+        </h3>
         <div class="mdc-slider" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="2" aria-valuenow="1" aria-label="Select Value">
           <div class="mdc-slider__track-container">
             <div class="mdc-slider__track"></div>
@@ -56,10 +55,10 @@
             <div class="mdc-slider__focus-ring"></div>
           </div>
         </div>
-      </section>
-      <section class="mdc-card__actions">
+      </div>
+      <div class="mdc-card__actions">
         <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple" id="reset">重置为 1</button>
-      </section>
+      </div>
     </div>
   </main>
   <div class="mdc-snackbar mdc-snackbar--align-start" aria-live="assertive" aria-atomic="true" aria-hidden="true">
