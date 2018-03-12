@@ -57,7 +57,12 @@
         </div>
       </div>
       <div class="mdc-card__actions">
-        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple" id="reset">重置为 1</button>
+        <button class="mdc-button mdc-button--compact mdc-card__action set-speed" data-mdc-auto-init="MDCRipple">0.5</button>
+        <button class="mdc-button mdc-button--compact mdc-card__action set-speed" data-mdc-auto-init="MDCRipple">1</button>
+        <button class="mdc-button mdc-button--compact mdc-card__action set-speed" data-mdc-auto-init="MDCRipple">1.25</button>
+        <button class="mdc-button mdc-button--compact mdc-card__action set-speed" data-mdc-auto-init="MDCRipple">1.5</button>
+        <button class="mdc-button mdc-button--compact mdc-card__action set-speed" data-mdc-auto-init="MDCRipple">2</button>
+        <button class="mdc-button mdc-button--compact mdc-card__action set-speed" data-mdc-auto-init="MDCRipple">3</button>
       </div>
     </div>
   </main>
@@ -96,9 +101,11 @@
     video.addEventListener('play', update);
     slider.listen('MDCSlider:change', update);
     slider.listen('MDCSlider:input', update);
-    document.querySelector('#reset').addEventListener('click', () => {
-      slider.value = 1;
-      update();
+    document.querySelectorAll('.set-speed').forEach(element => {
+      element.addEventListener('click', () => {
+        slider.value = element.innerHTML;
+        update();
+      });
     });
   </script>
 </body>
