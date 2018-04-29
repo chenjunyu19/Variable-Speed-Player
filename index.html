@@ -30,7 +30,9 @@
         <span class="mdc-toolbar__title">变速播放器</span>
       </section>
       <section class="mdc-toolbar__section mdc-toolbar__section--align-end mdc-toolbar__section--shrink-to-fit">
-        <a class="mdc-button mdc-theme--text-primary-on-primary" data-mdc-auto-init="MDCRipple" href="https://github.com/chenjunyu19/Variable-Speed-Player" target="_blank" rel="noopener"><i class="material-icons mdc-button__icon">open_in_new</i>GitHub</a>
+        <a class="mdc-button mdc-theme--text-primary-on-primary" data-mdc-auto-init="MDCRipple" href="https://github.com/chenjunyu19/Variable-Speed-Player" target="_blank" rel="noopener">
+          <i class="material-icons mdc-button__icon">open_in_new</i>GitHub
+        </a>
       </section>
     </div>
   </header>
@@ -64,6 +66,12 @@
         <button class="mdc-button mdc-button--compact mdc-card__action set-speed" data-mdc-auto-init="MDCRipple">1.5</button>
         <button class="mdc-button mdc-button--compact mdc-card__action set-speed" data-mdc-auto-init="MDCRipple">2</button>
         <button class="mdc-button mdc-button--compact mdc-card__action set-speed" data-mdc-auto-init="MDCRipple">3</button>
+      </div>
+    </div>
+    <div class="mdc-card">
+      <h4 class="padding">注册 ServiceWorker 可以缓存本地资源文件，加快页面加载，并可以离线使用。</h4>
+      <div class="mdc-card__actions">
+        <button class="mdc-button mdc-button--compact mdc-card__action" id="sw-reg" data-mdc-auto-init="MDCRipple">注册</button>
       </div>
     </div>
   </main>
@@ -107,6 +115,19 @@
         slider.value = element.innerHTML;
         update();
       });
+    });
+    document.querySelector('#sw-reg').addEventListener('click', () => {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').then((registration) => {
+          console.info('ServiceWorker 注册成功。', registration);
+          snackbar.show({ message: '注册 ServiceWorker 成功！请刷新页面以生效。' });
+        }).catch((err) => {
+          console.error('ServiceWorker 注册失败。', err);
+          snackbar.show({ message: '注册 ServiceWorker 时发生了错误！' });
+        });
+      } else {
+        snackbar.show({ message: '浏览器不支持 ServiceWorker！' });
+      }
     });
   </script>
 </body>

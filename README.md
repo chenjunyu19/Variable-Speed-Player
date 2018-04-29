@@ -9,6 +9,7 @@
 - 网页，方便随时随地使用。
 - 使用 [Material Components for the Web](https://material.io/components/web/) 设计，界面美观。
 - 简单易用。
+- 支持 ServiceWorker 离线缓存。
 
 缺点：
 
