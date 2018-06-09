@@ -45,6 +45,17 @@
       <video controls autoplay></video>
     </div>
     <div class="mdc-card">
+      <h3 class="padding card-title">快速调节</h3>
+      <div class="mdc-card__actions jump">
+        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">-30s</button>
+        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">-10s</button>
+        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">-5s</button>
+        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">+5s</button>
+        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">+10s</button>
+        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">+30s</button>
+      </div>
+    </div>
+    <div class="mdc-card">
       <div class="padding">
         <h3 class="card-title">
           回放速度
@@ -62,13 +73,13 @@
           </div>
         </div>
       </div>
-      <div class="mdc-card__actions">
-        <button class="mdc-button mdc-button--compact mdc-card__action set-speed" data-mdc-auto-init="MDCRipple">0.5</button>
-        <button class="mdc-button mdc-button--compact mdc-card__action set-speed" data-mdc-auto-init="MDCRipple">1</button>
-        <button class="mdc-button mdc-button--compact mdc-card__action set-speed" data-mdc-auto-init="MDCRipple">1.25</button>
-        <button class="mdc-button mdc-button--compact mdc-card__action set-speed" data-mdc-auto-init="MDCRipple">1.5</button>
-        <button class="mdc-button mdc-button--compact mdc-card__action set-speed" data-mdc-auto-init="MDCRipple">2</button>
-        <button class="mdc-button mdc-button--compact mdc-card__action set-speed" data-mdc-auto-init="MDCRipple">3</button>
+      <div class="mdc-card__actions set-speed">
+        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">0.5</button>
+        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">1</button>
+        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">1.25</button>
+        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">1.5</button>
+        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">2</button>
+        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">3</button>
       </div>
     </div>
     <div class="mdc-card">
@@ -113,7 +124,12 @@
     video.addEventListener('play', update);
     slider.listen('MDCSlider:change', update);
     slider.listen('MDCSlider:input', update);
-    document.querySelectorAll('.set-speed').forEach(element => {
+    document.querySelectorAll('.jump button').forEach(element => {
+      element.addEventListener('click', () => {
+        video.currentTime += parseInt(element.innerHTML);
+      });
+    });
+    document.querySelectorAll('.set-speed button').forEach(element => {
       element.addEventListener('click', () => {
         slider.value = element.innerHTML;
         update();
