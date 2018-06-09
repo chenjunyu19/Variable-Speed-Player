@@ -18,7 +18,11 @@
     }
 
     .padding {
-      padding: 0 1rem;
+      padding: 1rem 1rem 0rem 1rem;
+    }
+
+    .card-title {
+      margin: unset;
     }
   </style>
 </head>
@@ -27,7 +31,7 @@
   <header class="mdc-toolbar mdc-toolbar--fixed">
     <div class="mdc-toolbar__row">
       <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
-        <span class="mdc-toolbar__title">变速播放器</span>
+        <span class="mdc-toolbar__title" id="filename">将 URL 或本地文件拖放到下方...</span>
       </section>
       <section class="mdc-toolbar__section mdc-toolbar__section--align-end mdc-toolbar__section--shrink-to-fit">
         <a class="mdc-button mdc-theme--on-primary" data-mdc-auto-init="MDCRipple" href="https://github.com/chenjunyu19/Variable-Speed-Player" target="_blank" rel="noopener">
@@ -38,12 +42,11 @@
   </header>
   <main class="mdc-toolbar-fixed-adjust">
     <div class="mdc-card" id="drop">
-      <h3 class="padding" id="filename">接受本地或在线文件。将媒体文件托放至此处。</h3>
       <video controls autoplay></video>
     </div>
     <div class="mdc-card">
       <div class="padding">
-        <h3>
+        <h3 class="card-title">
           回放速度
           <div id="speed">1</div>
         </h3>
@@ -69,7 +72,7 @@
       </div>
     </div>
     <div class="mdc-card">
-      <h4 class="padding">注册 ServiceWorker 可以缓存本地资源文件，加快页面加载，并可以离线使用。请注意：注册后所有的网络请求将会被缓存，如果你需要播放在线文件，请不要注册。</h4>
+      <h4 class="padding card-title">注册 ServiceWorker 可以缓存本地资源文件，加快页面加载，并可以离线使用。请注意：注册后所有的网络请求将会被缓存，如果你需要播放在线文件，请不要注册。</h4>
       <div class="mdc-card__actions">
         <button class="mdc-button mdc-button--compact mdc-card__action" id="sw-reg" data-mdc-auto-init="MDCRipple">注册</button>
       </div>
