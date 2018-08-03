@@ -5,16 +5,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>变速播放器</title>
-  <link rel="stylesheet" href="https://unpkg.com/material-components-web@^0.36.1/dist/material-components-web.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/material-components-web@^0.38.0/dist/material-components-web.min.css">
   <link rel="stylesheet" href="https://fonts.proxy.ustclug.org/icon?family=Material+Icons">
   <style>
     :root {
       --mdc-theme-background: #F1F1F1;
     }
 
-    .mdc-card {
-      background-color: white;
-      margin: 8px 0;
+    body {
+      margin: 0;
+    }
+
+    .mdc-top-app-bar {
+      top: 0;
     }
 
     .padding {
@@ -28,64 +31,66 @@
 </head>
 
 <body class="mdc-theme--background">
-  <header class="mdc-toolbar mdc-toolbar--fixed">
-    <div class="mdc-toolbar__row">
-      <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
-        <span class="mdc-toolbar__title" id="filename">将 URL 或本地文件拖放到下方...</span>
+  <header class="mdc-top-app-bar mdc-top-app-bar--fixed">
+    <div class="mdc-top-app-bar__row">
+      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+        <span class="mdc-top-app-bar__title" id="filename">将 URL 或本地文件拖放到下方...</span>
       </section>
-      <section class="mdc-toolbar__section mdc-toolbar__section--align-end mdc-toolbar__section--shrink-to-fit">
-        <a class="mdc-button mdc-theme--on-primary" data-mdc-auto-init="MDCRipple" href="https://github.com/chenjunyu19/Variable-Speed-Player" target="_blank" rel="noopener">
-          <i class="material-icons mdc-button__icon">open_in_new</i>GitHub
-        </a>
+      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+        <a class="material-icons mdc-top-app-bar__action-item" href="https://github.com/chenjunyu19/Variable-Speed-Player" target="_blank" rel="noopener" aria-label="GitHub" data-mdc-auto-init="MDCRipple">code</a>
       </section>
     </div>
   </header>
-  <main class="mdc-toolbar-fixed-adjust">
-    <div class="mdc-card" id="drop">
-      <video controls autoplay></video>
-    </div>
-    <div class="mdc-card">
-      <h3 class="padding card-title">快速调节</h3>
-      <div class="mdc-card__actions jump">
-        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">-30s</button>
-        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">-10s</button>
-        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">-5s</button>
-        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">+5s</button>
-        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">+10s</button>
-        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">+30s</button>
-      </div>
-    </div>
-    <div class="mdc-card">
-      <div class="padding">
-        <h3 class="card-title">
-          回放速度
-          <div id="speed">1</div>
-        </h3>
-        <div class="mdc-slider" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="3" aria-valuenow="1" aria-label="Select Value">
-          <div class="mdc-slider__track-container">
-            <div class="mdc-slider__track"></div>
-          </div>
-          <div class="mdc-slider__thumb-container">
-            <svg class="mdc-slider__thumb" width="21" height="21">
-              <circle cx="10.5" cy="10.5" r="7.875"></circle>
-            </svg>
-            <div class="mdc-slider__focus-ring"></div>
+  <main class="mdc-top-app-bar--fixed-adjust">
+    <div class="mdc-layout-grid">
+      <div class="mdc-layout-grid__inner">
+        <div class="mdc-card mdc-layout-grid__cell mdc-layout-grid__cell--span-12" id="drop">
+          <video controls autoplay></video>
+        </div>
+        <div class="mdc-card mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+          <h3 class="padding card-title">快速调节</h3>
+          <div class="mdc-card__actions jump">
+            <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">-30s</button>
+            <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">-10s</button>
+            <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">-5s</button>
+            <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">+5s</button>
+            <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">+10s</button>
+            <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">+30s</button>
           </div>
         </div>
-      </div>
-      <div class="mdc-card__actions set-speed">
-        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">0.5</button>
-        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">1</button>
-        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">1.25</button>
-        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">1.5</button>
-        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">2</button>
-        <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">3</button>
-      </div>
-    </div>
-    <div class="mdc-card">
-      <h4 class="padding card-title">注册 ServiceWorker 可以缓存资源文件，加快页面加载，支持离线使用。请注意：注册后所有的网络请求将会被缓存，如果你需要播放在线文件，请不要注册。</h4>
-      <div class="mdc-card__actions">
-        <button class="mdc-button mdc-button--compact mdc-card__action" id="sw-reg" data-mdc-auto-init="MDCRipple">注册</button>
+        <div class="mdc-card mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+          <div class="padding">
+            <h3 class="card-title">
+              回放速度
+              <div id="speed">1</div>
+            </h3>
+            <div class="mdc-slider" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="3" aria-valuenow="1" aria-label="Select Value">
+              <div class="mdc-slider__track-container">
+                <div class="mdc-slider__track"></div>
+              </div>
+              <div class="mdc-slider__thumb-container">
+                <svg class="mdc-slider__thumb" width="21" height="21">
+                  <circle cx="10.5" cy="10.5" r="7.875"></circle>
+                </svg>
+                <div class="mdc-slider__focus-ring"></div>
+              </div>
+            </div>
+          </div>
+          <div class="mdc-card__actions set-speed">
+            <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">0.5</button>
+            <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">1</button>
+            <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">1.25</button>
+            <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">1.5</button>
+            <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">2</button>
+            <button class="mdc-button mdc-button--compact mdc-card__action" data-mdc-auto-init="MDCRipple">3</button>
+          </div>
+        </div>
+        <div class="mdc-card mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+          <h4 class="padding card-title">注册 ServiceWorker 可以缓存资源文件，加快页面加载，支持离线使用。请注意：注册后所有的网络请求将会被缓存，如果你需要播放在线文件，请不要注册。</h4>
+          <div class="mdc-card__actions">
+            <button class="mdc-button mdc-button--compact mdc-card__action" id="sw-reg" data-mdc-auto-init="MDCRipple">注册</button>
+          </div>
+        </div>
       </div>
     </div>
   </main>
@@ -95,7 +100,7 @@
       <button type="button" class="mdc-snackbar__action-button"></button>
     </div>
   </div>
-  <script src="https://unpkg.com/material-components-web@^0.36.1/dist/material-components-web.min.js"></script>
+  <script src="https://unpkg.com/material-components-web@^0.38.0/dist/material-components-web.min.js"></script>
   <script>
     mdc.autoInit();
     const drop = document.querySelector('#drop');
@@ -107,6 +112,8 @@
       document.querySelector('#speed').innerHTML = slider.value;
       video.playbackRate = slider.value;
     }
+    const topAppBarElement = document.querySelector('.mdc-top-app-bar');
+    const topAppBar = new mdc.topAppBar.MDCTopAppBar(topAppBarElement);
     drop.addEventListener('dragover', (event) => {
       event.preventDefault();
     });
